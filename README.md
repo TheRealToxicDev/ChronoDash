@@ -1,3 +1,7 @@
+<h2 align='center'>
+  <img src="./public/logo.png" height='150px' width='150px'/>
+  <br> 
+
 # ChronoDash
 
 A sleek frontend for the RESTful API cross-platform service management API [ChronoServe](https://github.com/TheRealToxicDev/ChronoServe).
