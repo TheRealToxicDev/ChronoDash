@@ -16,7 +16,7 @@ export default function ServicesPage() {
     setLoading(true);
     try {
       const response = await getServices();
-      const servicesData = response.data?.data ?? []; // ✅ FIXED: Directly use data array
+      const servicesData = response.data?.data ?? [];
       setServices(servicesData);
     } catch (err) {
       console.error("Failed to fetch services:", err);
