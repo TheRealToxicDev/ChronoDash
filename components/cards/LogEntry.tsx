@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { format } from "date-fns";
-import { LogEntry as LogEntryType } from "@/types";
+import { LogEntryType as LogEntryType } from "@/types";
 
 interface LogEntryProps {
   log: LogEntryType;
@@ -10,7 +10,9 @@ interface LogEntryProps {
 }
 
 export default function LogEntry({ log, index }: LogEntryProps) {
-  const getLevelColor = (level: string) => {
+  const getLevelColor = (level?: string) => {
+    if (!level) return "bg-muted text-muted-foreground border-border";
+  
     switch (level.toLowerCase()) {
       case "error":
         return "bg-red-500/10 text-red-500 border-red-500/20";
@@ -28,7 +30,9 @@ export default function LogEntry({ log, index }: LogEntryProps) {
 
   const formatTimestamp = (timestamp: string) => {
     try {
-      return format(new Date(timestamp), "MMM dd, yyyy HH:mm:ss");
+      // Convert "28 February 2025 11:46:12" to Date object
+      return format(new Date(timestamp.replace(/(\d+)(?:st|nd|rd|th)/, '$1')), 
+        "MMM dd, yyyy HH:mm:ss");
     } catch (error) {
       return timestamp;
     }
@@ -39,14 +43,16 @@ export default function LogEntry({ log, index }: LogEntryProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.2 }}
-      className={`p-3 rounded-md border mb-2 ${getLevelColor(log.level)}`}
+      className={`p-3 rounded-md border mb-2 ${getLevelColor(log.Level)}`}
     >
       <div className="flex flex-col space-y-1">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium uppercase">{log.level}</span>
-          <span className="text-xs">{formatTimestamp(log.timestamp)}</span>
+          <span className="text-xs font-medium uppercase">{log.Level}</span>
+          <span className="text-xs">
+            {formatTimestamp(log.Time?.DateTime || "Unknown date")}
+          </span>
         </div>
-        <p className="text-sm whitespace-pre-wrap">{log.message}</p>
+        <p className="text-sm whitespace-pre-wrap">{log.Message}</p>
       </div>
     </motion.div>
   );

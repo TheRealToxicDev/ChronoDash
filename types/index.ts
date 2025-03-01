@@ -62,11 +62,19 @@ export interface LogEntry {
   message: string;
 }
 
-export interface ServiceLogsResponse {
-  status: string;
-  data: {
-    logs: LogEntry[];
+export interface LogEntryType {
+  Level: string;
+  Message: string;
+  Time: {
+    DateTime: string;
+    value: string;
   };
+}
+
+export interface ServiceLogsResponse {
+  success: boolean;
+  message: string;
+  data: LogEntry[]; 
 }
 
 export interface User {
