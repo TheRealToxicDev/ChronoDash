@@ -3,21 +3,20 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FiActivity, FiUser, FiLock, FiAlertCircle } from "react-icons/fi";
+import { FiUser, FiLock, FiAlertCircle } from "react-icons/fi";
 import { login } from "../../utils/api";
 import { setAuthToken, setUserRoles } from "../../utils/auth";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setIsLoading(true);
 
     try {
@@ -25,17 +24,14 @@ export default function LoginPage() {
       console.log("Login response:", response.data);
       
       if (response.data.success) {
-        // Store the token and roles from the correct response structure
         setAuthToken(response.data.data.token);
         setUserRoles(response.data.data.roles);
+        toast.success("Login successful!");
         router.push("/");
       }
     } catch (err: any) {
       console.error("Login error:", err);
-      setError(
-        err.response?.data?.message || 
-        "Failed to login. Please check your credentials."
-      );
+      toast.error(err.response?.data?.message || "Failed to login. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -51,13 +47,7 @@ export default function LoginPage() {
         <div className="bg-card rounded-xl shadow-lg border border-border p-8">
           <div className="flex justify-center mb-6">
             <div className="p-3 bg-primary/10 rounded-full">
-            <Image 
-  src="/logo.png"
-  alt="Chrono logo"
-  width={24}
-  height={24}
-  className="w-8 h-8"
-/>
+              <Image src="/logo.png" alt="Chrono logo" width={24} height={24} className="w-8 h-8" />
             </div>
           </div>
           
@@ -66,23 +56,10 @@ export default function LoginPage() {
             Sign in to access the health monitoring dashboard
           </p>
           
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-destructive/10 text-destructive p-3 rounded-md mb-6 flex items-center space-x-2"
-            >
-              <FiAlertCircle className="w-5 h-5 flex-shrink-0" />
-              <p className="text-sm">{error}</p>
-            </motion.div>
-          )}
-          
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div className="space-y-2">
-                <label htmlFor="username" className="text-sm font-medium">
-                  Username
-                </label>
+                <label htmlFor="username" className="text-sm font-medium">Username</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-muted-foreground">
                     <FiUser className="w-5 h-5" />
@@ -100,9 +77,7 @@ export default function LoginPage() {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium">
-                  Password
-                </label>
+                <label htmlFor="password" className="text-sm font-medium">Password</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-muted-foreground">
                     <FiLock className="w-5 h-5" />

@@ -5,6 +5,7 @@ import { FiActivity } from "react-icons/fi";
 import HealthStats from "@/components/cards/HealthStatsCard";
 import { getHealth } from "@/utils/api";
 import { HealthStatus } from "@/types";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [health, setHealth] = useState<HealthStatus | null>(null);
@@ -18,7 +19,9 @@ export default function Home() {
         setHealth(response.data);
         setError(null);
       } catch (err) {
-        setError("Failed to fetch health data");
+        const errorMessage = "Failed to fetch health data";
+        setError(errorMessage);
+        toast.error(errorMessage);
         console.error(err);
       } finally {
         setLoading(false);

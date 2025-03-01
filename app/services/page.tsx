@@ -6,6 +6,7 @@ import { FiServer, FiRefreshCw } from "react-icons/fi";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { Service } from "@/types";
 import { getServices } from "@/utils/api";
+import toast from "react-hot-toast";
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
@@ -18,9 +19,11 @@ export default function ServicesPage() {
       const response = await getServices();
       const servicesData = response.data?.data ?? [];
       setServices(servicesData);
+      toast.success("Services loaded successfully");
     } catch (err) {
       console.error("Failed to fetch services:", err);
       setError("Failed to load services. Please try again.");
+      toast.error("Failed to load services");
     } finally {
       setLoading(false);
     }
@@ -57,7 +60,7 @@ export default function ServicesPage() {
       )}
 
       {loading && !error ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md-grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, index) => (
             <div
               key={index}
