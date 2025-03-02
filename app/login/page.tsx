@@ -17,7 +17,6 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Redirect if already authenticated
     if (isAuthenticated()) {
       router.push("/");
     }
@@ -27,11 +26,10 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const response = await login({ username, password });
-      console.log("Login response:", response.data);
-      
+
       if (response.data.success) {
         setAuthToken(response.data.data.token);
         setUserRoles(response.data.data.roles);
@@ -39,8 +37,8 @@ export default function LoginPage() {
         router.push("/");
       }
     } catch (err: any) {
-      console.error("Login error:", err);
-      const errorMessage = err.response?.data?.message || "Failed to login. Please check your credentials.";
+      const errorMessage =
+        err.response?.data?.message || "Failed to login. Please check your credentials.";
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -50,14 +48,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-background via-background/95 to-background/90 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-primary/5 blur-3xl"></div>
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-primary/5 blur-3xl"></div>
-        <div className="absolute top-[10%] right-[10%] w-[40%] h-[40%] rounded-full bg-chart-1/5 blur-3xl"></div>
-        <div className="absolute bottom-[10%] left-[10%] w-[40%] h-[40%] rounded-full bg-chart-2/5 blur-3xl"></div>
-      </div>
-      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -65,44 +55,42 @@ export default function LoginPage() {
         className="w-full max-w-md z-10"
       >
         <div className="bg-card/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-border/50 p-8 overflow-hidden relative">
-          {/* Card background decoration */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl"></div>
-          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-chart-4/5 rounded-full blur-2xl"></div>
-          
           <div className="relative">
             <div className="flex justify-center mb-8">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 260, 
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
                   damping: 20,
-                  delay: 0.3 
+                  delay: 0.3,
                 }}
                 className="p-4 bg-primary/10 rounded-full shadow-inner"
               >
-                <Image 
-                  src="/logo.png" 
-                  alt="Sysmanix logo" 
-                  width={40} 
-                  height={40} 
+                <Image
+                  src="/logo.png"
+                  alt="Sysmanix logo"
+                  width={40}
+                  height={40}
                   className="w-10 h-10 drop-shadow-md"
                 />
               </motion.div>
             </div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
-              <h1 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">Welcome Back</h1>
+              <h1 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                Welcome Back
+              </h1>
               <p className="text-muted-foreground text-center mb-8">
                 Sign in to access your system monitoring dashboard
               </p>
             </motion.div>
-            
+
             {error && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -113,18 +101,20 @@ export default function LoginPage() {
                 <p className="text-sm font-medium">{error}</p>
               </motion.div>
             )}
-            
+
             <form onSubmit={handleSubmit}>
               <div className="space-y-6">
-                <motion.div 
+                <motion.div
                   className="space-y-2"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <label htmlFor="username" className="text-sm font-medium block mb-1.5">Username</label>
+                  <label htmlFor="username" className="text-sm font-medium block mb-1.5">
+                    Username
+                  </label>
                   <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-muted-foreground">
                       <FiUser className="w-5 h-5" />
                     </div>
                     <input
@@ -138,16 +128,18 @@ export default function LoginPage() {
                     />
                   </div>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   className="space-y-2"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <label htmlFor="password" className="text-sm font-medium block mb-1.5">Password</label>
+                  <label htmlFor="password" className="text-sm font-medium block mb-1.5">
+                    Password
+                  </label>
                   <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-muted-foreground">
                       <FiLock className="w-5 h-5" />
                     </div>
                     <input
@@ -161,7 +153,7 @@ export default function LoginPage() {
                     />
                   </div>
                 </motion.div>
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -169,7 +161,7 @@ export default function LoginPage() {
                   className="pt-2"
                 >
                   <motion.button
-                    whileHover={{ scale: 1.02, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" }}
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isLoading}
@@ -177,47 +169,19 @@ export default function LoginPage() {
                       isLoading ? "opacity-70 cursor-not-allowed" : ""
                     }`}
                   >
-                    {isLoading ? (
-                      <span className="flex items-center justify-center">
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        Signing in...
-                      </span>
-                    ) : (
-                      "Sign In"
-                    )}
+                    {isLoading ? "Signing in..." : "Sign In"}
                   </motion.button>
                 </motion.div>
               </div>
             </form>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9 }}
               className="mt-8 text-center"
             >
-              <p className="text-sm text-muted-foreground">
-              Sysmanix - System Monitoring Dashboard
-              </p>
+              <p className="text-sm text-muted-foreground">Sysmanix - System Monitoring Dashboard</p>
             </motion.div>
           </div>
         </div>
