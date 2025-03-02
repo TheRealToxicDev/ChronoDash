@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-      template: "%s | Chrono",
-      default: "Chrono - Manage your system services with ease.",
+      template: "%s | Sysmanix",
+      default: "Sysmanix - Manage your system services with ease.",
   },
-  description: "Chrono- Manage your system services with ease.",
+  description: "Sysmanix - Manage your system services with ease.",
   icons: {
       icon: "/logo.png",
   },

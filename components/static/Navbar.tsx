@@ -41,12 +41,12 @@ export default function Navbar() {
         <Link href="/" className="flex items-center space-x-2">
         <Image 
   src="/logo.png"
-  alt="Chrono logo"
+  alt="Sysmanix logo"
   width={24}
   height={24}
   className="w-6 h-6"
 />
-          <span className="font-bold text-xl">Chrono</span>
+          <span className="font-bold text-xl">Sysmanix</span>
         </Link>
 
         <div className="flex items-center space-x-6">

@@ -84,7 +84,7 @@ export default function LoginPage() {
               >
                 <Image 
                   src="/logo.png" 
-                  alt="Chrono logo" 
+                  alt="Sysmanix logo" 
                   width={40} 
                   height={40} 
                   className="w-10 h-10 drop-shadow-md"
@@ -216,7 +216,7 @@ export default function LoginPage() {
               className="mt-8 text-center"
             >
               <p className="text-sm text-muted-foreground">
-                Chrono - System Monitoring Dashboard
+              Sysmanix - System Monitoring Dashboard
               </p>
             </motion.div>
           </div>
