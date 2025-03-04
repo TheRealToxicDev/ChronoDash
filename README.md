@@ -1,5 +1,5 @@
 <h2 align='center'>
-  <img src="./public/logo_white.webp" height='150px' width='150px'/>
+  <img src="./public/logo_black.webp" height='150px' width='150px'/>
   <br> 
 
 # SysManix
