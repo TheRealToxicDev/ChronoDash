@@ -3,15 +3,17 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FiHome, FiServer, FiLogOut, FiActivity } from "react-icons/fi";
+import { FiHome, FiServer, FiLogOut } from "react-icons/fi";
 import ThemeSwitcher from "../other/ThemeSwitcher";
 import { isAuthenticated, logout } from "@/utils/auth";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
     const pathname = usePathname();
     const router = useRouter();
+    const { theme } = useTheme();
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ export default function Navbar() {
             <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                 <Link href="/" className="flex items-center space-x-2">
                     <Image
-                        src="/logo.png"
+                        src={theme === "dark" ? "/logo_black.webp" : "/logo_white.webp"}
                         alt="Sysmanix logo"
                         width={24}
                         height={24}
