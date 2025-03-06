@@ -30,7 +30,6 @@ export default function LogEntry({ log, index }: LogEntryProps) {
 
     const formatTimestamp = (timestamp: string) => {
         try {
-            // Convert "28 February 2025 11:46:12" to Date object
             return format(
                 new Date(timestamp.replace(/(\d+)(?:st|nd|rd|th)/, "$1")),
                 "MMM dd, yyyy HH:mm:ss"
