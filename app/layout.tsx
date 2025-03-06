@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
     description: "Sysmanix - Manage your system services with ease.",
     icons: {
-        icon: "/logo.png",
+        icon: "/logo_white.png",
     },
 };
 
