@@ -1,6 +1,6 @@
-<h2 align='center'>
-  <img src="./public/logo_black.webp" height='150px' width='150px'/>
-  <br> 
+<p align="center">
+  <img src="https://elixir.makesmehorny.wtf/users/510065483693817867/xgP3CBBp.png" alt="SysManix Banner" width="50%" style="border-radius: 10px;"/>
+</p>
 
 # SysManix
 

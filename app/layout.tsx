@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/other/ThemeProvider";
 import Navbar from "@/components/static/Navbar";
-
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,6 +31,10 @@ export default function RootLayout({
                     enableSystem
                 >
                     <Navbar />
+                    <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
                     <main className="pt-16 min-h-screen">{children}</main>
                 </ThemeProvider>
             </body>

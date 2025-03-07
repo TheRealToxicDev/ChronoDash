@@ -37,9 +37,9 @@ export default function ServicesPage() {
 
             setServices(
                 servicesData.map((service: any) => ({
-                    DisplayName: service.DisplayName,
-                    Name: service.Name,
-                    status: mapServiceStatus(service.Status),
+                    displayName: service.displayName, 
+                    name: service.name, 
+                    isActive: service.Status === "Running" || service.Status === 4
                 }))
             );
         } catch (err) {
@@ -51,12 +51,6 @@ export default function ServicesPage() {
         }
     };
 
-    const mapServiceStatus = (
-        status: number
-    ): "running" | "stopped" | "unknown" => {
-        return status === 1 ? "stopped" : status === 4 ? "running" : "unknown";
-    };
-
     const handleRefresh = () => {
         fetchServices();
         toast.success("Services refreshed");
@@ -65,13 +59,15 @@ export default function ServicesPage() {
     const filteredServices = useMemo(() => {
         return services.filter(
             (service) =>
-                (service.DisplayName.toLowerCase().includes(
+                (service.displayName.toLowerCase().includes( 
                     searchQuery.toLowerCase()
                 ) ||
-                    service.Name.toLowerCase().includes(
-                        searchQuery.toLowerCase()
-                    )) &&
-                (statusFilter === "all" || service.status === statusFilter)
+                service.name.toLowerCase().includes( 
+                    searchQuery.toLowerCase()
+                )) &&
+                (statusFilter === "all" || 
+                 (statusFilter === "running" && service.isActive) ||
+                 (statusFilter === "stopped" && !service.isActive))
         );
     }, [services, searchQuery, statusFilter]);
 
@@ -178,7 +174,7 @@ export default function ServicesPage() {
                 >
                     {filteredServices.map((service) => (
                         <ServiceCard
-                            key={service.Name}
+                            key={service.name}
                             service={service}
                             onStatusChange={fetchServices}
                         />

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FiHome, FiServer, FiLogOut, FiMenu } from "react-icons/fi";
+import { FiHome, FiServer, FiLogOut, FiMenu, FiShield } from "react-icons/fi";
 import ThemeSwitcher from "../other/ThemeSwitcher";
 import { isAuthenticated, logout } from "@/utils/auth";
 import { useEffect, useState } from "react";
@@ -63,6 +63,11 @@ export default function Navbar() {
                         icon={<FiServer />}
                         label="Services"
                     />
+                    <NavLink
+                        href="/admin/tokens"
+                        icon={<FiShield />}
+                        label="Token Management"
+                    />
 
                     <div className="flex items-center space-x-4 pl-6 border-l border-border">
                         <ThemeSwitcher />
@@ -78,6 +83,7 @@ export default function Navbar() {
                         </motion.button>
                     </div>
                 </div>
+                
 
                 <div className="md:hidden">
                     <button onClick={toggleMenu} className="text-muted-foreground hover:text-primary">

@@ -37,12 +37,12 @@ export default function ServiceCard({
 
         setIsLoading(true);
         try {
-            await startService(service.Name);
-            toast.success(`${service.DisplayName} started successfully`);
+            await startService(service.name);
+            toast.success(`${service.displayName} started successfully`);
             onStatusChange();
         } catch (error) {
             console.error("Failed to start service:", error);
-            toast.error(`Failed to start ${service.DisplayName}`);
+            toast.error(`Failed to start ${service.displayName}`);
         } finally {
             setIsLoading(false);
         }
@@ -56,37 +56,35 @@ export default function ServiceCard({
 
         setIsLoading(true);
         try {
-            await stopService(service.Name);
-            toast.success(`${service.DisplayName} stopped successfully`);
+            await stopService(service.name);
+            toast.success(`${service.displayName} stopped successfully`);
             onStatusChange();
         } catch (error) {
             console.error("Failed to stop service:", error);
-            toast.error(`Failed to stop ${service.DisplayName}`);
+            toast.error(`Failed to stop ${service.displayName}`);
         } finally {
             setIsLoading(false);
         }
     };
 
     const getStatusIcon = () => {
-        switch (service.status) {
-            case "running":
-                return <FiCheckCircle className="w-5 h-5 text-green-500" />;
-            case "stopped":
-                return <FiXCircle className="w-5 h-5 text-red-500" />;
-            default:
-                return <FiAlertCircle className="w-5 h-5 text-yellow-500" />;
+        if (service.isActive) {
+            return <FiCheckCircle className="w-5 h-5 text-green-500" />;
+        } else {
+            return <FiXCircle className="w-5 h-5 text-red-500" />;
         }
     };
 
     const getStatusBadgeClass = () => {
-        switch (service.status) {
-            case "running":
-                return "bg-green-500/10 text-green-500 border-green-500/20";
-            case "stopped":
-                return "bg-red-500/10 text-red-500 border-red-500/20";
-            default:
-                return "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+        if (service.isActive) {
+            return "bg-green-500/10 text-green-500 border-green-500/20";
+        } else {
+            return "bg-red-500/10 text-red-500 border-red-500/20";
         }
+    };
+
+    const getStatusText = () => {
+        return service.isActive ? "running" : "stopped";
     };
 
     return (
@@ -102,11 +100,7 @@ export default function ServiceCard({
             {/* Status indicator line at top */}
             <div
                 className={`h-1 w-full ${
-                    service.status === "running"
-                        ? "bg-green-500"
-                        : service.status === "stopped"
-                        ? "bg-red-500"
-                        : "bg-yellow-500"
+                    service.isActive ? "bg-green-500" : "bg-red-500"
                 }`}
             ></div>
 
@@ -114,7 +108,7 @@ export default function ServiceCard({
                 <div className="flex items-start justify-between mb-4">
                     <div>
                         <h3 className="text-xl font-semibold mb-1 flex items-center">
-                            {service.DisplayName}
+                            {service.displayName}
                             <motion.span
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
@@ -123,12 +117,12 @@ export default function ServiceCard({
                             >
                                 {getStatusIcon()}
                                 <span className="ml-1.5 font-medium capitalize">
-                                    {service.status}
+                                    {getStatusText()}
                                 </span>
                             </motion.span>
                         </h3>
                         <p className="text-muted-foreground text-sm">
-                            {service.Name}
+                            {service.name}
                         </p>
                     </div>
                 </div>
@@ -144,20 +138,15 @@ export default function ServiceCard({
                                             "rgba(34, 197, 94, 0.2)",
                                     }}
                                     whileTap={{ scale: 0.95 }}
-                                    disabled={
-                                        service.status === "running" ||
-                                        isLoading
-                                    }
+                                    disabled={service.isActive || isLoading}
                                     onClick={handleStartService}
                                     className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                                        service.status === "running" ||
-                                        isLoading
+                                        service.isActive || isLoading
                                             ? "bg-muted text-muted-foreground cursor-not-allowed"
                                             : "bg-green-500/10 text-green-500 hover:bg-green-500/20 border border-green-500/20"
                                     }`}
                                 >
-                                    {isLoading &&
-                                    service.status !== "running" ? (
+                                    {isLoading && !service.isActive ? (
                                         "Loading..."
                                     ) : (
                                         <FiPlay className="w-4 h-4" />
@@ -172,20 +161,15 @@ export default function ServiceCard({
                                             "rgba(239, 68, 68, 0.2)",
                                     }}
                                     whileTap={{ scale: 0.95 }}
-                                    disabled={
-                                        service.status !== "running" ||
-                                        isLoading
-                                    }
+                                    disabled={!service.isActive || isLoading}
                                     onClick={handleStopService}
                                     className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                                        service.status !== "running" ||
-                                        isLoading
+                                        !service.isActive || isLoading
                                             ? "bg-muted text-muted-foreground cursor-not-allowed"
                                             : "bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20"
                                     }`}
                                 >
-                                    {isLoading &&
-                                    service.status === "running" ? (
+                                    {isLoading && service.isActive ? (
                                         "Loading..."
                                     ) : (
                                         <FiSquare className="w-4 h-4" />
@@ -196,7 +180,7 @@ export default function ServiceCard({
                         )}
                     </div>
 
-                    <Link href={`/services/${service.Name}/logs`}>
+                    <Link href={`/services/${service.name}/logs`}>
                         <motion.div
                             whileHover={{
                                 scale: 1.05,

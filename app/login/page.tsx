@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { FiUser, FiLock, FiAlertCircle } from "react-icons/fi";
 import { login } from "@/utils/api";
-import { setAuthToken, setUserRoles, isAuthenticated } from "@/utils/auth";
+import { isAuthenticated, setAuthToken, setUserRoles } from "@/utils/auth";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { FiAlertCircle, FiLock, FiUser } from "react-icons/fi";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -30,7 +30,7 @@ export default function LoginPage() {
         try {
             const response = await login({ username, password });
 
-            if (response.data.success) {
+            if (response.data.status === "success") {
                 setAuthToken(response.data.data.token);
                 setUserRoles(response.data.data.roles);
                 toast.success("Login successful!");
@@ -70,7 +70,7 @@ export default function LoginPage() {
                                 className="p-4 bg-primary/10 rounded-full shadow-inner"
                             >
                                 <Image
-                                    src="/logo.png"
+                                    src="/logo_black.webp"
                                     alt="Sysmanix logo"
                                     width={40}
                                     height={40}

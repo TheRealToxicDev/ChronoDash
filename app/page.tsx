@@ -45,36 +45,18 @@ export default function Home() {
         try {
             const response = await getServices();
             const servicesData = response.data?.data ?? [];
-
-            const mappedServices: Service[] = servicesData.map(
-                (service: any) => ({
-                    DisplayName: service.DisplayName,
-                    Name: service.Name,
-                    status: mapServiceStatus(service.Status),
-                })
-            );
-
+        
+            const mappedServices: Service[] = servicesData.map((service: any) => ({
+                displayName: service.displayName,
+                name: service.name,
+                isActive: service.isActive,
+            }));
+        
             setServices(mappedServices);
         } catch (err) {
             console.error("Failed to fetch services:", err);
         } finally {
             setServicesLoading(false);
-        }
-    };
-
-    const mapServiceStatus = (
-        status: number
-    ): "running" | "stopped" | "unknown" => {
-        switch (status) {
-            case 1:
-                return "stopped";
-            case 4:
-                return "running";
-            case 2:
-            case 3:
-                return "unknown";
-            default:
-                return "unknown";
         }
     };
 
@@ -98,12 +80,8 @@ export default function Home() {
         return () => clearInterval(interval);
     }, []);
 
-    const runningServices = services.filter(
-        (s) => s.status === "running"
-    ).length;
-    const stoppedServices = services.filter(
-        (s) => s.status === "stopped"
-    ).length;
+    const runningServices = services.filter((s) => s.isActive).length;
+const stoppedServices = services.filter((s) => !s.isActive).length;
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -257,7 +235,7 @@ export default function Home() {
                                         .slice(0, 3)
                                         .map((service, index) => (
                                             <motion.div
-                                                key={service.Name}
+                                                key={service.name}
                                                 initial={{ opacity: 0, x: -10 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 transition={{
@@ -266,28 +244,26 @@ export default function Home() {
                                                 className="flex items-center justify-between p-3 rounded-xl bg-background/50 border border-border hover:border-primary/30 hover:bg-background transition-colors duration-200"
                                             >
                                                 <div className="flex items-center space-x-3">
-                                                    <div
-                                                        className={`w-2.5 h-2.5 rounded-full ${
-                                                            service.status ===
-                                                            "running"
-                                                                ? "bg-green-500"
-                                                                : "bg-red-500"
-                                                        } animate-pulse`}
-                                                    ></div>
+                                                <div
+                            className={`w-2.5 h-2.5 rounded-full ${
+                                service.isActive
+                                    ? "bg-green-500"
+                                    : "bg-red-500"
+                            } animate-pulse`}
+                        ></div>
                                                     <span className="font-medium">
-                                                        {service.DisplayName}
+                                                        {service.displayName}
                                                     </span>
                                                 </div>
                                                 <span
-                                                    className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${
-                                                        service.status ===
-                                                        "running"
-                                                            ? "bg-green-500/10 text-green-500 border border-green-500/20"
-                                                            : "bg-red-500/10 text-red-500 border border-red-500/20"
-                                                    }`}
-                                                >
-                                                    {service.status}
-                                                </span>
+                        className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${
+                            service.isActive
+                                ? "bg-green-500/10 text-green-500 border border-green-500/20"
+                                : "bg-red-500/10 text-red-500 border border-red-500/20"
+                        }`}
+                    >
+                        {service.isActive ? "running" : "stopped"}
+                    </span>
                                             </motion.div>
                                         ))}
                                 </div>

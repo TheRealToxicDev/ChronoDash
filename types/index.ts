@@ -19,7 +19,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    success: boolean;
+    status: string;  // Changed from 'success' boolean to 'status' string
     message: string;
     data: {
         token: string;
@@ -34,9 +34,9 @@ export interface ErrorResponse {
 }
 
 export interface Service {
-    DisplayName: string;
-    Name: string;
-    status: "running" | "stopped" | "unknown";
+    displayName: string;
+    name: string;
+    isActive: boolean;
 }
 
 export interface ServicesResponse {
@@ -81,3 +81,39 @@ export interface User {
     username: string;
     roles: string[];
 }
+
+export interface Token {
+    tokenId: string;
+    userId: string;
+    roles: string[];
+    issuedAt: string;
+    expiresAt: string;
+  }
+  
+  export interface TokenResponse {
+    status: string;
+    message: string;
+    data: Token[];
+  }
+  
+  export interface SingleTokenResponse {
+    status: string;
+    message: string;
+    data: {
+      token: string;
+    };
+  }
+  
+  export interface RevokeTokenRequest {
+    tokenId: string;
+  }
+  
+  export interface AdminRevokeRequest {
+    userId: string;
+  }
+  
+  export interface GenericResponse {
+    status: string;
+    message: string;
+    data?: any;
+  }
