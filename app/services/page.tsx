@@ -37,9 +37,9 @@ export default function ServicesPage() {
 
             setServices(
                 servicesData.map((service: any) => ({
-                    displayName: service.displayName, 
-                    name: service.name, 
-                    isActive: service.Status === "Running" || service.Status === 4
+                    displayName: service.displayName,
+                    name: service.name,
+                    isActive: service.isActive,
                 }))
             );
         } catch (err) {
