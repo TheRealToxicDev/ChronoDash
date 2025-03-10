@@ -102,13 +102,11 @@ export default function Home() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            {/* Ultra Premium Header Section */}
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-8 relative"
             >
-                {/* Enhanced decorative background elements */}
                 <div className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-bl from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
                 
@@ -187,7 +185,6 @@ export default function Home() {
                     transition={{ delay: 0.1 }}
                     className="bg-card rounded-2xl shadow-xl border border-border p-6 relative overflow-hidden group hover:shadow-2xl transition-all duration-500"
                 >
-                    {/* Enhanced background decorations */}
                     <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500"></div>
                     <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-chart-3/5 rounded-full blur-2xl group-hover:bg-chart-3/10 transition-colors duration-500"></div>
 
@@ -228,7 +225,6 @@ export default function Home() {
                     transition={{ delay: 0.2 }}
                     className="bg-card rounded-2xl shadow-xl border border-border p-6 relative overflow-hidden group hover:shadow-2xl transition-all duration-500"
                 >
-                    {/* Enhanced background decorations */}
                     <div className="absolute -top-24 -left-24 w-48 h-48 bg-chart-1/5 rounded-full blur-2xl group-hover:bg-chart-1/10 transition-colors duration-500"></div>
                     <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-chart-4/5 rounded-full blur-2xl group-hover:bg-chart-4/10 transition-colors duration-500"></div>
 

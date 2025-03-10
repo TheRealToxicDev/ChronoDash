@@ -93,13 +93,11 @@ export default function AdminTokensPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Ultra Premium Header Section */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-8 relative"
       >
-        {/* Enhanced decorative background elements */}
         <div className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-bl from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
         
@@ -138,7 +136,6 @@ export default function AdminTokensPage() {
             </div>
           </div>
 
-          {/* Quick Stats Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -155,7 +152,6 @@ export default function AdminTokensPage() {
         </div>
       </motion.div>
 
-      {/* Enhanced Stats Grid */}
       <div className="grid gap-6 mb-8 md:grid-cols-3">
         {[
           {
@@ -190,7 +186,6 @@ export default function AdminTokensPage() {
             transition={{ delay: stat.delay }}
             className={`bg-gradient-to-br from-${stat.color}-500/5 via-${stat.color}-500/10 to-transparent backdrop-blur-xl rounded-2xl border border-${stat.color}-500/20 p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-500`}
           >
-            {/* Animated background elements */}
             <div className={`absolute inset-0 bg-gradient-to-br from-${stat.color}-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
             <div className={`absolute -top-12 -right-12 w-32 h-32 bg-${stat.color}-500/10 rounded-full blur-2xl group-hover:bg-${stat.color}-500/20 transition-colors duration-500`}></div>
             <div className={`absolute -bottom-12 -left-12 w-32 h-32 bg-${stat.color}-500/10 rounded-full blur-2xl group-hover:bg-${stat.color}-500/20 transition-colors duration-500`}></div>
@@ -235,19 +230,16 @@ export default function AdminTokensPage() {
         ))}
       </div>
 
-      {/* Enhanced Main Content Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
         className="bg-gradient-to-br from-card via-card/95 to-card/90 backdrop-blur-xl rounded-2xl border border-border/50 overflow-hidden relative shadow-xl"
       >
-        {/* Enhanced decorative elements */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl animate-pulse"></div>
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "2s" }}></div>
         
         <div className="relative">
-          {/* Enhanced Controls Section */}
           <div className="p-6 border-b border-border/50 backdrop-blur-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -299,7 +291,6 @@ export default function AdminTokensPage() {
             </div>
           </div>
 
-          {/* Enhanced Error Message */}
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -313,7 +304,6 @@ export default function AdminTokensPage() {
             </motion.div>
           )}
 
-          {/* Enhanced Table Section */}
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

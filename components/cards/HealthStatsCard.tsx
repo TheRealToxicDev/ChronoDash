@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { HealthStatus } from "@/types";
 import { formatDistanceToNow } from "date-fns";
 import {
-    FiCpu,
     FiHardDrive,
     FiClock,
     FiActivity,

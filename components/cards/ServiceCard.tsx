@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import {
     FiPlay,
     FiSquare,
-    FiAlertCircle,
     FiCheckCircle,
     FiXCircle,
     FiFileText,
