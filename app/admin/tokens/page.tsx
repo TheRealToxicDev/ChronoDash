@@ -13,6 +13,8 @@ import {
   FiSearch,
   FiFilter,
   FiShield,
+  FiCheckCircle,
+  FiDatabase,
   FiCpu,
   FiActivity,
   FiLock
@@ -45,7 +47,6 @@ export default function AdminTokensPage() {
       }
       setTokens(response.data.data);
       setError(null);
-      toast.success("Tokens refreshed successfully");
     } catch (err: any) {
       console.error("Failed to fetch tokens:", err);
       const errorMessage = err.response?.data?.message || "Failed to load tokens";
@@ -92,18 +93,18 @@ export default function AdminTokensPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header Section with Premium Styling */}
+      {/* Ultra Premium Header Section */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-8 relative"
       >
-        {/* Decorative background elements */}
-        <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+        {/* Enhanced decorative background elements */}
+        <div className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-bl from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
         
         <div className="relative">
-          <div className="flex items-center space-x-3 mb-2">
+          <div className="flex items-center space-x-4 mb-3">
             <motion.div 
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -113,16 +114,16 @@ export default function AdminTokensPage() {
                 damping: 20,
                 delay: 0.1
               }}
-              className="p-3 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl shadow-xl"
+              className="p-4 bg-gradient-to-br from-primary/20 via-primary/15 to-primary/10 rounded-2xl shadow-xl border border-primary/20 backdrop-blur-xl"
             >
-              <FiKey className="w-8 h-8 text-primary" />
+              <FiKey className="w-10 h-10 text-primary" />
             </motion.div>
             <div>
               <motion.h1 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-4xl font-bold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent"
+                className="text-5xl font-bold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent tracking-tight"
               >
                 Token Management
               </motion.h1>
@@ -130,41 +131,56 @@ export default function AdminTokensPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-muted-foreground/80 mt-1"
+                className="text-lg text-muted-foreground/80 mt-2"
               >
                 Secure and monitor authentication tokens across your system
               </motion.p>
             </div>
           </div>
+
+          {/* Quick Stats Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-6 flex items-center space-x-6 text-sm text-muted-foreground"
+          >
+            <div className="flex items-center space-x-2">
+              <div className="p-1.5 bg-blue-500/10 rounded-lg">
+                <FiActivity className="w-4 h-4 text-blue-500" />
+              </div>
+              <span>Last Updated: <span className="font-medium">{format(new Date(), 'HH:mm:ss')}</span></span>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
 
-      {/* Stats Grid with Enhanced Visual Design */}
+      {/* Enhanced Stats Grid */}
       <div className="grid gap-6 mb-8 md:grid-cols-3">
         {[
           {
-            icon: <FiKey className="w-7 h-7" />,
+            icon: <FiKey className="w-8 h-8" />,
             value: tokens.length,
             label: "Active Tokens",
             sublabel: "Total active sessions",
             color: "blue",
-            delay: 0.1
+            delay: 0.1,
           },
           {
-            icon: <FiUser className="w-7 h-7" />,
+            icon: <FiUser className="w-8 h-8" />,
             value: uniqueUsers.length,
             label: "Unique Users",
             sublabel: "With active sessions",
             color: "green",
-            delay: 0.2
+            delay: 0.2,
           },
           {
-            icon: <FiShield className="w-7 h-7" />,
+            icon: <FiShield className="w-8 h-8" />,
             value: tokens.reduce((acc, token) => acc + token.roles.length, 0),
             label: "Active Roles",
-            sublabel: "Total assignments",
+            sublabel: "Total Active roles",
             color: "purple",
-            delay: 0.3
+            delay: 0.3,
           }
         ].map((stat, index) => (
           <motion.div
@@ -174,10 +190,8 @@ export default function AdminTokensPage() {
             transition={{ delay: stat.delay }}
             className={`bg-gradient-to-br from-${stat.color}-500/5 via-${stat.color}-500/10 to-transparent backdrop-blur-xl rounded-2xl border border-${stat.color}-500/20 p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-500`}
           >
-            {/* Animated background gradient */}
+            {/* Animated background elements */}
             <div className={`absolute inset-0 bg-gradient-to-br from-${stat.color}-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-            
-            {/* Decorative circles */}
             <div className={`absolute -top-12 -right-12 w-32 h-32 bg-${stat.color}-500/10 rounded-full blur-2xl group-hover:bg-${stat.color}-500/20 transition-colors duration-500`}></div>
             <div className={`absolute -bottom-12 -left-12 w-32 h-32 bg-${stat.color}-500/10 rounded-full blur-2xl group-hover:bg-${stat.color}-500/20 transition-colors duration-500`}></div>
             
@@ -204,7 +218,7 @@ export default function AdminTokensPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: stat.delay + 0.3 }}
-                className="text-lg font-semibold mb-1"
+                className="text-xl font-semibold mb-1"
               >
                 {stat.label}
               </motion.h3>
@@ -212,7 +226,7 @@ export default function AdminTokensPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: stat.delay + 0.4 }}
-                className="text-sm text-muted-foreground"
+                className="text-sm text-muted-foreground mb-3"
               >
                 {stat.sublabel}
               </motion.p>
@@ -221,19 +235,19 @@ export default function AdminTokensPage() {
         ))}
       </div>
 
-      {/* Main Content Card with Enhanced Design */}
+      {/* Enhanced Main Content Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
         className="bg-gradient-to-br from-card via-card/95 to-card/90 backdrop-blur-xl rounded-2xl border border-border/50 overflow-hidden relative shadow-xl"
       >
-        {/* Decorative background elements */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl"></div>
-        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl"></div>
+        {/* Enhanced decorative elements */}
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "2s" }}></div>
         
         <div className="relative">
-          {/* Controls Section */}
+          {/* Enhanced Controls Section */}
           <div className="p-6 border-b border-border/50 backdrop-blur-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -257,7 +271,7 @@ export default function AdminTokensPage() {
                   <select
                     value={selectedUser}
                     onChange={(e) => setSelectedUser(e.target.value)}
-                    className="pl-11 pr-4 py-3 rounded-xl bg-background/50 border border-input focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all duration-200 appearance-none cursor-pointer"
+                    className="pl-11 pr-10 py-3 rounded-xl bg-background/50 border border-input focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all duration-200 appearance-none cursor-pointer"
                   >
                     <option value="">All Users</option>
                     {uniqueUsers.map(user => (
@@ -285,7 +299,7 @@ export default function AdminTokensPage() {
             </div>
           </div>
 
-          {/* Error Message */}
+          {/* Enhanced Error Message */}
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -299,7 +313,7 @@ export default function AdminTokensPage() {
             </motion.div>
           )}
 
-          {/* Table Section */}
+          {/* Enhanced Table Section */}
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

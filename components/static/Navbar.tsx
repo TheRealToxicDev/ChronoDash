@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FiHome, FiServer, FiLogOut, FiMenu, FiShield } from "react-icons/fi";
+import { FiHome, FiServer, FiLogOut, FiMenu, FiKey } from "react-icons/fi";
 import ThemeSwitcher from "../other/ThemeSwitcher";
 import { isAuthenticated, logout } from "@/utils/auth";
 import { useEffect, useState } from "react";
@@ -65,7 +65,7 @@ export default function Navbar() {
                     />
                     <NavLink
                         href="/admin/tokens"
-                        icon={<FiShield />}
+                        icon={<FiKey />}
                         label="Token Management"
                     />
 

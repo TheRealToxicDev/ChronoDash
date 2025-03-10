@@ -74,17 +74,39 @@ export default function ServicesPage() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-                <div>
-                    <div className="flex items-center space-x-3 mb-2">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                            <FiServer className="w-6 h-6 text-primary" />
+            <div className="flex items-center space-x-4 mb-3">
+                        <motion.div 
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ 
+                                type: "spring",
+                                stiffness: 260,
+                                damping: 20,
+                                delay: 0.1
+                            }}
+                            className="p-4 bg-gradient-to-br from-primary/20 via-primary/15 to-primary/10 rounded-2xl shadow-xl border border-primary/20 backdrop-blur-xl"
+                        >
+                            <FiServer className="w-10 h-10 text-primary" />
+                        </motion.div>
+                        <div>
+                            <motion.h1 
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-5xl font-bold bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent tracking-tight"
+                            >
+                                Services
+                            </motion.h1>
+                            <motion.p 
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="text-lg text-muted-foreground/80 mt-2"
+                            >
+                                Manage and monitor all your system services
+                            </motion.p>
                         </div>
-                        <h1 className="text-3xl font-bold">Services</h1>
                     </div>
-                    <p className="text-muted-foreground">
-                        Manage and monitor all your system services
-                    </p>
-                </div>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
